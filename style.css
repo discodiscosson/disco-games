@@ -1,0 +1,121 @@
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --text: #202122;
+  --muted: #54595d;
+  --border: #a2a9b1;
+  --soft-border: #dfe3e8;
+  --link: #3366cc;
+  --link-dark: #2a55a8;
+  --header-bg: #a7c3e0;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.65;
+  font-size: 16px;
+}
+a { color: var(--link); }
+a:hover { color: var(--link-dark); }
+.skip-link {
+  position: absolute; left: -999px; top: 8px; background: #fff; padding: 8px 12px;
+  border: 1px solid var(--border); border-radius: 4px; z-index: 100;
+}
+.skip-link:focus { left: 8px; }
+
+.container { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* ---- header ---- */
+.site-header { background: var(--card); border-bottom: 1px solid var(--soft-border); }
+.site-header .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 14px; padding-bottom: 14px; flex-wrap: wrap; }
+.brand { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+.brand span { color: var(--link); }
+.site-nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.site-nav a { color: var(--muted); text-decoration: none; font-size: 15px; font-weight: 600; }
+.site-nav a:hover { color: var(--link); }
+
+/* ---- hero ---- */
+.hero { padding: 56px 0 40px; }
+.hero h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -0.02em; }
+.hero .lead { font-size: 18px; color: var(--muted); max-width: 640px; margin: 0 0 24px; }
+
+.btn {
+  display: inline-block; padding: 12px 22px; border-radius: 6px; font-weight: 700; font-size: 16px;
+  text-decoration: none; border: 1px solid var(--link); background: var(--link); color: #fff;
+}
+.btn:hover { background: var(--link-dark); border-color: var(--link-dark); color: #fff; }
+.btn-secondary { background: #fff; color: var(--link); }
+.btn-secondary:hover { background: #eef3ff; color: var(--link-dark); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---- sections ---- */
+section { padding: 28px 0; }
+section h2 { font-size: 26px; margin: 0 0 14px; letter-spacing: -0.01em; }
+section h3 { font-size: 19px; margin: 22px 0 8px; }
+.section-intro { color: var(--muted); max-width: 680px; margin: 0 0 20px; }
+p { margin: 10px 0; }
+ul, ol { padding-left: 22px; }
+li { margin: 6px 0; }
+
+/* ---- game cards ---- */
+.game-list { display: grid; gap: 18px; }
+.game-card {
+  display: grid; grid-template-columns: 300px 1fr; gap: 24px; background: var(--card);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+.game-card .thumb { background: #eef2f7; padding: 18px; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--soft-border); }
+.game-card .body { padding: 20px 22px 22px 0; }
+.game-card h3 { margin: 0 0 6px; font-size: 22px; }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; padding: 0; list-style: none; }
+.tags li { margin: 0; font-size: 12px; font-weight: 700; background: #eef3ff; color: var(--link-dark); padding: 3px 9px; border-radius: 12px; }
+
+/* ---- mock career table ---- */
+.mock { width: 100%; max-width: 260px; background: #fff; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; font-size: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.mock .mock-head { background: var(--header-bg); text-align: center; font-weight: 700; font-size: 13px; padding: 6px; border-bottom: 1px solid var(--border); }
+.mock table { width: 100%; border-collapse: collapse; }
+.mock th, .mock td { padding: 4px 7px; text-align: left; border-bottom: 1px solid #eee; font-size: 12px; }
+.mock th { font-weight: 700; border-bottom: 1px solid #ccc; }
+.mock td.team { color: var(--link); }
+.mock .num { text-align: right; }
+.mock .mock-guess { padding: 7px; border-top: 1px solid var(--soft-border); background: #fafbfc; }
+.mock .mock-input { border: 1px solid var(--border); border-radius: 3px; padding: 5px 7px; color: #888; background: #fff; font-size: 12px; }
+
+/* ---- content blocks ---- */
+.panel { background: var(--card); border: 1px solid var(--border); border-radius: 4px; padding: 20px 22px; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.feature-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.feature-list li { margin: 0; padding-left: 0; }
+.feature-list strong { display: block; }
+table.data { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); font-size: 15px; }
+table.data th, table.data td { padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--soft-border); }
+table.data th { background: #f0f2f5; }
+.table-wrap { overflow-x: auto; }
+
+/* ---- FAQ ---- */
+details { background: var(--card); border: 1px solid var(--soft-border); border-radius: 4px; padding: 0; margin: 8px 0; }
+summary { cursor: pointer; padding: 12px 16px; font-weight: 700; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; float: right; font-weight: 400; color: var(--muted); }
+details[open] summary::after { content: "–"; }
+details[open] summary { border-bottom: 1px solid var(--soft-border); }
+details .answer { padding: 4px 16px 14px; }
+
+/* ---- breadcrumbs / footer ---- */
+.breadcrumbs { font-size: 14px; color: var(--muted); padding-top: 20px; }
+.breadcrumbs a { color: var(--muted); }
+.site-footer { margin-top: 40px; background: var(--card); border-top: 1px solid var(--soft-border); padding: 26px 0 34px; font-size: 14px; color: var(--muted); }
+.site-footer .links { display: flex; gap: 18px; flex-wrap: wrap; margin-bottom: 10px; }
+.site-footer a { color: var(--muted); }
+.site-footer p { margin: 6px 0; }
+
+@media (max-width: 760px) {
+  .game-card { grid-template-columns: 1fr; }
+  .game-card .thumb { border-right: none; border-bottom: 1px solid var(--soft-border); }
+  .game-card .body { padding: 0 20px 20px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .hero { padding-top: 36px; }
+}
