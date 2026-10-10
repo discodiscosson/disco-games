@@ -1,5 +1,6 @@
 :root {
-  --bg: #f5f6f8;
+  --bg: #dae9e6;            /* light variant of brand green #187363 */
+  --brand: #187363;
   --card: #ffffff;
   --text: #202122;
   --muted: #54595d;
@@ -61,15 +62,18 @@ p { margin: 10px 0; }
 ul, ol { padding-left: 22px; }
 li { margin: 6px 0; }
 
-/* ---- game cards ---- */
-.game-list { display: grid; gap: 18px; }
-.game-card {
-  display: grid; grid-template-columns: 300px 1fr; gap: 24px; background: var(--card);
-  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+/* ---- game tiles ---- */
+.game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.game-tile {
+  display: flex; flex-direction: column; background: var(--card); color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden; text-decoration: none;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
-.game-card .thumb { background: #eef2f7; padding: 18px; display: flex; align-items: center; justify-content: center; border-right: 1px solid var(--soft-border); }
-.game-card .body { padding: 20px 22px 22px 0; }
-.game-card h3 { margin: 0 0 6px; font-size: 22px; }
+.game-tile:hover { transform: translateY(-2px); border-color: var(--brand); box-shadow: 0 4px 14px rgba(24,115,99,0.18); color: var(--text); }
+.game-tile:focus-visible { outline: 3px solid var(--brand); outline-offset: 2px; }
+.game-tile .thumb { background: #eef2f7; padding: 18px; display: flex; align-items: center; justify-content: center; flex: 1; }
+.tile-title { padding: 10px 14px; font-weight: 700; font-size: 16px; border-top: 1px solid var(--soft-border); }
+@media (prefers-reduced-motion: reduce) { .game-tile { transition: none; } .game-tile:hover { transform: none; } }
 .tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 10px; padding: 0; list-style: none; }
 .tags li { margin: 0; font-size: 12px; font-weight: 700; background: #eef3ff; color: var(--link-dark); padding: 3px 9px; border-radius: 12px; }
 
@@ -113,9 +117,6 @@ details .answer { padding: 4px 16px 14px; }
 .site-footer p { margin: 6px 0; }
 
 @media (max-width: 760px) {
-  .game-card { grid-template-columns: 1fr; }
-  .game-card .thumb { border-right: none; border-bottom: 1px solid var(--soft-border); }
-  .game-card .body { padding: 0 20px 20px; }
   .grid-2 { grid-template-columns: 1fr; }
   .hero { padding-top: 36px; }
 }
