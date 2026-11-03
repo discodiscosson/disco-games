@@ -24,6 +24,35 @@
 <meta name="twitter:image" content="https://www.disco.games/og-image.png">
 
 <link rel="stylesheet" href="/style.css">
+<style>
+  /* ---- Account (shared disco.games sign-in) ---- */
+  .account { display: flex; align-items: center; gap: 10px; margin-left: 16px; min-height: 36px; }
+  .account [hidden] { display: none !important; }
+  .account-btn {
+    display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+    border: 1px solid #7a1515; border-radius: 6px; background: #fff; color: #7a1515;
+    font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  }
+  .account-btn:hover { background: #fff5fd; }
+  .account-btn:focus-visible, .account-signout:focus-visible { outline: 2px solid #7a1515; outline-offset: 2px; }
+  .account-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .account-user { display: flex; align-items: center; gap: 8px; }
+  .account-avatar {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: #7a1515; color: #fff; font-size: 13px; font-weight: 700;
+  }
+  .account-name { font-size: 14px; font-weight: 600; color: #7a1515; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .account-signout {
+    background: none; border: none; padding: 4px; font: inherit; font-size: 13px;
+    color: #7a1515; text-decoration: underline; cursor: pointer;
+  }
+  @media (max-width: 640px) {
+    .account { margin-left: 8px; }
+    .account-name { display: none; }
+    .account-btn .account-btn-long { display: none; }
+  }
+</style>
 
 <script type="application/ld+json">
 {
@@ -83,6 +112,17 @@
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <div class="account" id="account">
+      <button type="button" class="account-btn" id="signInBtn" hidden>
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        <span>Sign in<span class="account-btn-long"> with Google</span></span>
+      </button>
+      <div class="account-user" id="accountUser" hidden>
+        <span class="account-avatar" id="accountAvatar" aria-hidden="true"></span>
+        <span class="account-name" id="accountName"></span>
+        <button type="button" class="account-signout" id="signOutBtn">Sign out</button>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -208,7 +248,7 @@
         <div class="panel">
           <p>disco.games is an independent project made by David Larsson in Sweden. The idea is simple: games that are quick to start, easy to understand and hard to put down, for people who enjoy trivia and sports.</p>
           <p>Each game lives on its own address, such as <a href="https://guessthecareer.disco.games">guessthecareer.disco.games</a>, <a href="https://airports.disco.games">airports.disco.games</a>, <a href="https://flagquiz.disco.games">flagquiz.disco.games</a> and <a href="https://mumla.disco.games">mumla.disco.games</a>, so it loads fast and can be improved without affecting the others.</p>
-          <p>Mumla is our daily word game in Swedish: guess the day’s word in six tries.</p>
+          <p>Mumla is our daily word game in Swedish: guess the day’s word in five tries.</p>
         </div>
         <div class="panel">
           <ul class="feature-list">
@@ -263,5 +303,110 @@
     <p>disco.games is an independent project and is not affiliated with any football club, league or player.</p>
   </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+// ---- Shared disco.games sign-in (same Supabase project and cookie as the games) ----
+const SUPABASE_URL = 'https://hnsldcynysirhrwahaif.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhuc2xkY3lueXNpcmhyd2FoYWlmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkyMTk0MjAsImV4cCI6MjEwNDc5NTQyMH0.SZcaNDF9th-CX9R7M6QNF8OOSAQ36yLiHZNAkv6marI';
+
+const COOKIE_DOMAIN = location.hostname.endsWith('disco.games') ? '; Domain=.disco.games' : '';
+const COOKIE_CHUNK = 3000;
+const COOKIE_MAX_AGE = 60 * 60 * 24 * 400;
+function setCookie(name, value, maxAge) {
+  document.cookie = `${name}=${value}; Path=/; Max-Age=${maxAge}; SameSite=Lax; Secure${COOKIE_DOMAIN}`;
+}
+function getCookie(name) {
+  const m = document.cookie.split('; ').find(c => c.startsWith(name + '='));
+  return m ? m.slice(name.length + 1) : null;
+}
+function clearCookieChunks(key, from) {
+  for (let i = from; i < 10; i++) if (getCookie(`${key}.${i}`) !== null) setCookie(`${key}.${i}`, '', 0);
+}
+const discoStorage = {
+  getItem(key) {
+    let out = '', i = 0, part;
+    while ((part = getCookie(`${key}.${i}`)) !== null) { out += part; i++; }
+    if (out) { try { return decodeURIComponent(out); } catch (e) { return null; } }
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  },
+  setItem(key, value) {
+    const enc = encodeURIComponent(value);
+    const n = Math.ceil(enc.length / COOKIE_CHUNK);
+    for (let i = 0; i < n; i++) setCookie(`${key}.${i}`, enc.slice(i * COOKIE_CHUNK, (i + 1) * COOKIE_CHUNK), COOKIE_MAX_AGE);
+    clearCookieChunks(key, n);
+    try { localStorage.removeItem(key); } catch (e) {}
+  },
+  removeItem(key) {
+    clearCookieChunks(key, 0);
+    try { localStorage.removeItem(key); } catch (e) {}
+  }
+};
+
+(function () {
+  const signInBtn = document.getElementById('signInBtn');
+  const accountUser = document.getElementById('accountUser');
+  const accountAvatar = document.getElementById('accountAvatar');
+  const accountName = document.getElementById('accountName');
+  const signOutBtn = document.getElementById('signOutBtn');
+
+  if (!window.supabase) { signInBtn.hidden = false; signInBtn.disabled = true; return; }
+
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    auth: { storage: discoStorage, persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+  });
+  let currentUser = null;
+
+  function initialsOf(name) {
+    const p = String(name || '').trim().split(/\s+/).filter(Boolean);
+    return p.length ? (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase() : '?';
+  }
+
+  async function render(user) {
+    currentUser = user;
+    const signedIn = !!(user && !user.is_anonymous);
+    if (!signedIn) {
+      accountUser.hidden = true;
+      signInBtn.hidden = false;
+      return;
+    }
+    let name = user.user_metadata?.full_name || user.email || 'Player';
+    try {
+      const { data } = await supabaseClient.from('profiles').select('username').eq('user_id', user.id).maybeSingle();
+      if (data && data.username && data.username !== 'Guest') name = data.username;
+    } catch (e) { /* the Google name is fine */ }
+    accountAvatar.textContent = initialsOf(name);
+    accountName.textContent = name;
+    accountUser.title = 'Signed in as ' + name;
+    signInBtn.hidden = true;
+    accountUser.hidden = false;
+  }
+
+  signInBtn.addEventListener('click', async () => {
+    const redirectTo = window.location.origin;
+    // A guest from one of the games keeps their progress by linking Google to the guest account
+    if (currentUser && currentUser.is_anonymous) {
+      const { error } = await supabaseClient.auth.linkIdentity({ provider: 'google', options: { redirectTo } });
+      if (!error) return;
+    }
+    await supabaseClient.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+  });
+
+  signOutBtn.addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    render(null);
+  });
+
+  // Clean up error parameters Google/Supabase may leave in the address bar
+  const raw = location.hash.replace(/^#/, '') + '&' + location.search.replace(/^\?/, '');
+  const params = new URLSearchParams(raw);
+  if (params.get('error') || params.get('error_code')) history.replaceState(null, '', location.pathname);
+
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    const u = session ? session.user : null;
+    if (u && currentUser && u.id === currentUser.id && event !== 'USER_UPDATED') return;
+    render(u);
+  });
+})();
+</script>
 </body>
 </html>
