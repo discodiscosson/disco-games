@@ -53,6 +53,28 @@
     .account-name { display: none; }
     .account-btn .account-btn-long { display: none; }
   }
+  /* ---- Leaderboard overview ---- */
+  .lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .lb-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; }
+  .lb-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .lb-card-title { margin: 0; font-size: 17px; font-weight: 700; color: var(--brand); }
+  .lb-card-play { font-size: 14px; font-weight: 600; white-space: nowrap; }
+  .lb-rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+  .lb-rows li { margin: 0; }
+  .lb-row { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 6px; font-size: 15px; }
+  .lb-row.is-me { background: var(--tint); box-shadow: inset 0 0 0 1px var(--soft-border); }
+  .lb-pos { width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--muted); background: var(--tint); font-variant-numeric: tabular-nums; }
+  .lb-pos.p1 { background: #D4A72C; color: #3d2b0d; }
+  .lb-pos.p2 { background: #C8CDD3; color: #2f3338; }
+  .lb-pos.p3 { background: #C27A45; color: #fff; }
+  .lb-pos.me { background: var(--brand); color: #fff; }
+  .lb-flag { width: 20px; height: 14px; flex-shrink: 0; border-radius: 2px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); object-fit: cover; }
+  .lb-who { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .lb-row.is-me .lb-who { font-weight: 700; color: var(--brand); }
+  .lb-pts { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .lb-gap { text-align: center; color: var(--muted); font-size: 13px; line-height: 1; padding: 2px 0; }
+  .lb-note { margin: 0; font-size: 13px; color: var(--muted); }
+  .lb-note a { font-weight: 600; }
 </style>
 
 <script type="application/ld+json">
@@ -112,6 +134,7 @@
     </div>
     <nav class="site-nav" aria-label="Main">
       <a href="#games">Games</a>
+      <a href="#leaderboards">Leaderboards</a>
       <a href="#about">About</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -245,6 +268,25 @@
       </div>
     </section>
 
+    <section id="leaderboards" aria-labelledby="leaderboards-title">
+      <h2 id="leaderboards-title">Leaderboards</h2>
+      <p class="section-intro">The top 3 in every game, and where you stand. Your score is the number of answers you've found.</p>
+      <div class="lb-grid" id="lbGrid">
+        <article class="lb-card" data-lb="career">
+          <div class="lb-card-head"><h3 class="lb-card-title">Guess the Career</h3><a class="lb-card-play" href="https://guessthecareer.disco.games">Play</a></div>
+          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+        </article>
+        <article class="lb-card" data-lb="airport">
+          <div class="lb-card-head"><h3 class="lb-card-title">Guess the Airport</h3><a class="lb-card-play" href="https://airports.disco.games">Play</a></div>
+          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+        </article>
+        <article class="lb-card" data-lb="flag">
+          <div class="lb-card-head"><h3 class="lb-card-title">Flag Quiz</h3><a class="lb-card-play" href="https://flagquiz.disco.games">Play</a></div>
+          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+        </article>
+      </div>
+    </section>
+
     <section id="about" aria-labelledby="about-title">
       <h2 id="about-title">About disco.games</h2>
       <div class="grid-2">
@@ -353,7 +395,11 @@ const discoStorage = {
   const accountName = document.getElementById('accountName');
   const signOutBtn = document.getElementById('signOutBtn');
 
-  if (!window.supabase) { signInBtn.hidden = false; signInBtn.disabled = true; return; }
+  if (!window.supabase) {
+    signInBtn.hidden = false; signInBtn.disabled = true;
+    document.querySelectorAll('#lbGrid .lb-body').forEach(b => { b.innerHTML = '<p class="lb-note">Could not load the leaderboard.</p>'; });
+    return;
+  }
 
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
     auth: { storage: discoStorage, persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
@@ -367,6 +413,7 @@ const discoStorage = {
 
   async function render(user) {
     currentUser = user;
+    renderLeaderboards();
     const signedIn = !!(user && !user.is_anonymous);
     if (!signedIn) {
       accountUser.hidden = true;
@@ -383,6 +430,67 @@ const discoStorage = {
     accountUser.title = 'Signed in as ' + name;
     signInBtn.hidden = true;
     accountUser.hidden = false;
+  }
+
+  // ---- Leaderboard overview: top 3 + your own rank, per game ----
+  const LEADERBOARDS = [
+    { key: 'career', url: 'https://guessthecareer.disco.games', unit: 'players',
+      load: () => supabaseClient.rpc('get_leaderboard', { p_league_id: null, p_club_id: null, p_limit: 3 }) },
+    { key: 'airport', url: 'https://airports.disco.games', unit: 'airports',
+      load: () => supabaseClient.rpc('ap_get_leaderboard', { p_continent: null, p_limit: 3 }) },
+    { key: 'flag', url: 'https://flagquiz.disco.games', unit: 'flags',
+      load: () => supabaseClient.rpc('get_flag_leaderboard', { p_continent: null, p_limit: 3, p_subcategory: null }) }
+  ];
+  let lbRun = 0;
+
+  function lbEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+  function lbFlag(code) {
+    const c = String(code || '').toLowerCase();
+    if (!/^[a-z]{2}$/.test(c)) return '';
+    return `<img class="lb-flag" src="https://guessthecareer.disco.games/assets/flags/${c}.svg" width="20" height="14" alt="" loading="lazy" onerror="this.remove()">`;
+  }
+  function lbRow(e, isMe) {
+    const pos = Number(e.pos) || 0;
+    const posClass = isMe && pos > 3 ? ' me' : pos >= 1 && pos <= 3 ? ' p' + pos : '';
+    const name = (e.username || 'Player') + (isMe ? ' (you)' : '');
+    return `<li class="lb-row${isMe ? ' is-me' : ''}"><span class="lb-pos${posClass}">${pos || '–'}</span>${lbFlag(e.country_code)}` +
+      `<span class="lb-who">${lbEsc(name)}</span><span class="lb-pts">${Number(e.score || 0).toLocaleString('en-US')}</span></li>`;
+  }
+
+  async function renderLeaderboards() {
+    const run = ++lbRun;
+    const me = currentUser && !currentUser.is_anonymous ? currentUser : null;
+    await Promise.all(LEADERBOARDS.map(async lb => {
+      const body = document.querySelector(`#lbGrid [data-lb="${lb.key}"] .lb-body`);
+      if (!body) return;
+      let data = null;
+      try {
+        const res = await lb.load();
+        if (res.error) throw res.error;
+        data = res.data || {};
+      } catch (e) {
+        console.error('Leaderboard failed:', lb.key, e);
+      }
+      if (run !== lbRun) return;
+      if (!data) { body.innerHTML = '<p class="lb-note">Could not load the leaderboard.</p>'; return; }
+
+      // Accounts are shared across games, so only rows with a score count here
+      const entries = (data.entries || []).filter(e => Number(e.score) > 0).slice(0, 3);
+      const mine = me && data.me && Number(data.me.score) > 0 ? data.me : null;
+      const meInTop = !!(mine && entries.some(e => e.user_id === mine.user_id));
+
+      let html = entries.length
+        ? '<ul class="lb-rows">' + entries.map(e => lbRow(e, !!(me && e.user_id === me.id))).join('') +
+          (mine && !meInTop ? '<li class="lb-gap" aria-hidden="true">···</li>' + lbRow(mine, true) : '') + '</ul>'
+        : `<p class="lb-note">No one on the board yet. <a href="${lb.url}">Be the first</a>.</p>`;
+
+      if (!me) html += '<p class="lb-note">Sign in to see your own rank.</p>';
+      else if (!mine && entries.length) html += `<p class="lb-note">You're not on this board yet. <a href="${lb.url}">Play to get on it</a>.</p>`;
+      if (data.total) html += `<p class="lb-note">Score = ${lb.unit} found, out of ${Number(data.total).toLocaleString('en-US')}</p>`;
+      body.innerHTML = html;
+    }));
   }
 
   signInBtn.addEventListener('click', async () => {
