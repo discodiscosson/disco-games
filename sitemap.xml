@@ -2,10 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.disco.games/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-26</lastmod>
   </url>
   <url>
     <loc>https://www.disco.games/guess-the-career</loc>
     <lastmod>2026-10-08</lastmod>
+  </url>
+  <url>
+    <loc>https://www.disco.games/guess-the-airport</loc>
+    <lastmod>2026-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.disco.games/flag-quiz</loc>
+    <lastmod>2026-11-26</lastmod>
+  </url>
+  <url>
+    <loc>https://www.disco.games/mumla</loc>
+    <lastmod>2026-11-26</lastmod>
   </url>
 </urlset>
