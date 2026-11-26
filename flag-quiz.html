@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flag Quiz – Guess the Country from Its Flag | disco.games</title>
+<meta name="description" content="Free flag quiz with all 197 countries. See a flag, guess the country in 20 seconds and climb the leaderboard. Also regional flags like the US states.">
+<link rel="canonical" href="https://www.disco.games/flag-quiz">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFD5FB">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="disco.games">
+<meta property="og:title" content="Flag Quiz – Guess the Country from Its Flag | disco.games">
+<meta property="og:description" content="Free flag quiz with all 197 countries. See a flag, guess the country in 20 seconds and climb the leaderboard. Also regional flags like the US states.">
+<meta property="og:url" content="https://www.disco.games/flag-quiz">
+<meta property="og:image" content="https://www.disco.games/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flag Quiz – Guess the Country from Its Flag | disco.games">
+<meta name="twitter:description" content="Free flag quiz with all 197 countries. See a flag, guess the country in 20 seconds and climb the leaderboard. Also regional flags like the US states.">
+<meta name="twitter:image" content="https://www.disco.games/og-image.png">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .header-left { display: flex; align-items: center; gap: 6px; margin-left: -8px; color: var(--text); }
+  .game-hero { padding: 36px 0 24px; }
+  .game-hero h1 { font-size: clamp(32px, 5vw, 44px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -0.02em; color: var(--brand); }
+  .game-hero .lead { font-size: 18px; color: var(--muted); max-width: 680px; margin: 0 0 24px; }
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .steps li { counter-increment: step; position: relative; margin: 0; padding: 14px 16px 14px 58px; background: var(--card); border: 1px solid var(--soft-border); border-radius: 6px; }
+  .steps li::before { content: counter(step); position: absolute; left: 14px; top: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .more-games { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .more-games li { margin: 0; }
+  .more-games a { display: inline-block; padding: 8px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; font-weight: 600; text-decoration: none; }
+  .more-games a:hover { border-color: var(--brand); }
+  .cta { padding: 8px 0 12px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "VideoGame",
+      "name": "Flag Quiz",
+      "url": "https://flagquiz.disco.games/",
+      "mainEntityOfPage": "https://www.disco.games/flag-quiz",
+      "description": "Free flag quiz with all 197 countries. See a flag, guess the country in 20 seconds and climb the leaderboard. Also regional flags like the US states.",
+      "genre": [
+        "Trivia",
+        "Geography",
+        "Quiz"
+      ],
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "operatingSystem": "Any",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "disco.games",
+        "url": "https://www.disco.games/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "disco.games",
+          "item": "https://www.disco.games/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Flag Quiz",
+          "item": "https://www.disco.games/flag-quiz"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-left" data-disco-menu>
+      <a class="brand" href="/">disco<span>.games</span></a>
+    </div>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/#games">Games</a>
+      <a href="/#leaderboards">Leaderboards</a>
+      <a href="/#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">disco.games</a> › Flag Quiz</nav>
+
+    <div class="game-hero">
+      <h1>Flag Quiz: guess the country from its flag</h1>
+      <p class="lead">See a flag, name the country before the 20-second timer runs out, and work your way through all 197 countries.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://flagquiz.disco.games/">Play Flag Quiz</a>
+        <a class="btn btn-secondary" href="#how-to-play">How to play</a>
+      </div>
+    </div>
+
+    <section id="how-to-play" aria-labelledby="how-title">
+      <h2 id="how-title">How to play</h2>
+      <ol class="steps"><li>A flag appears on the screen.</li><li>Type the country’s name and pick it from the list.</li><li>Answer within 20 seconds. Get it right and the flag is yours. Get it wrong and it goes to the back of the pile, so you meet it again later.</li><li>Keep going until you have found every flag in your selection, and build streaks along the way.</li></ol>
+    </section>
+
+    <section aria-labelledby="features-title">
+      <h2 id="features-title">What's in the game</h2>
+      <div class="panel"><ul class="feature-list"><li><strong>All 197 countries</strong>Grouped by continent, so you can practise one region at a time.</li><li><strong>Regional flags</strong>Go beyond countries with flags such as the US states.</li><li><strong>Free flags</strong>Play at least one guess on 5 days in a row to earn a free flag that reveals one you are stuck on. You can save up to 3.</li><li><strong>Leaderboards</strong>See how you rank worldwide and on each continent.</li><li><strong>One account for all games</strong>Play as a guest, or sign in with Google to save your progress across every game on disco.games.</li></ul></div>
+    </section>
+
+    <section aria-labelledby="tips-title">
+      <h2 id="tips-title">Tips</h2>
+      <p>Start with the continent you know least. Because wrong answers come back later in the same round, you learn the hard flags by repetition.</p><p>Many flags share colours and stripes. Look for the details: an emblem, a star or the order of the stripes is often what tells two flags apart.</p>
+    </section>
+
+    <section aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently asked questions</h2>
+      <details>
+        <summary>Is the Flag Quiz free?</summary>
+        <div class="answer"><p>Yes. It is free to play, with no ads at the moment.</p></div>
+      </details>
+      <details>
+        <summary>How many flags are there?</summary>
+        <div class="answer"><p>All 197 countries, plus regional flags such as the US states.</p></div>
+      </details>
+      <details>
+        <summary>Do I need an account?</summary>
+        <div class="answer"><p>No. You can play as a guest straight away. Sign in with Google to save your progress and join the leaderboard.</p></div>
+      </details>
+      <details>
+        <summary>Where do the flag images come from?</summary>
+        <div class="answer"><p>The flags come from flag-icons, an open-source flag collection under the MIT licence.</p></div>
+      </details>
+    </section>
+
+    <div class="cta"><a class="btn" href="https://flagquiz.disco.games/">Play Flag Quiz</a></div>
+
+    <section aria-labelledby="more-title">
+      <h2 id="more-title">More games on disco.games</h2>
+      <ul class="more-games"><li><a href="/guess-the-career">Guess the Career</a></li> <li><a href="/guess-the-airport">Guess the Airport</a></li> <li><a href="/mumla">Mumla</a></li></ul>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/guess-the-career">Guess the Career</a>
+      <a href="/guess-the-airport">Guess the Airport</a>
+      <a href="/flag-quiz">Flag Quiz</a>
+      <a href="/mumla">Mumla</a>
+      <a href="/privacy">Privacy policy</a>
+      <a href="/terms">Terms</a>
+      <a href="mailto:info@disco.games">Contact</a>
+    </div>
+    <p>© 2026 disco.games · Made in Sweden by David Larsson.</p>
+  </div>
+</footer>
+<script src="/menu.js" defer></script>
+</body>
+</html>

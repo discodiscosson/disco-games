@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mumla – dagens ord, ett svenskt ordspel som Wordle | disco.games</title>
+<meta name="description" content="Mumla är ett gratis dagligt ordspel på svenska. Gissa dagens ord på fem bokstäver med fem försök. Ett nytt ord varje dag.">
+<link rel="canonical" href="https://www.disco.games/mumla">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FFD5FB">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="disco.games">
+<meta property="og:title" content="Mumla – dagens ord, ett svenskt ordspel som Wordle | disco.games">
+<meta property="og:description" content="Mumla är ett gratis dagligt ordspel på svenska. Gissa dagens ord på fem bokstäver med fem försök. Ett nytt ord varje dag.">
+<meta property="og:url" content="https://www.disco.games/mumla">
+<meta property="og:image" content="https://www.disco.games/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mumla – dagens ord, ett svenskt ordspel som Wordle | disco.games">
+<meta name="twitter:description" content="Mumla är ett gratis dagligt ordspel på svenska. Gissa dagens ord på fem bokstäver med fem försök. Ett nytt ord varje dag.">
+<meta name="twitter:image" content="https://www.disco.games/og-image.png">
+<link rel="stylesheet" href="/style.css">
+<style>
+  .header-left { display: flex; align-items: center; gap: 6px; margin-left: -8px; color: var(--text); }
+  .game-hero { padding: 36px 0 24px; }
+  .game-hero h1 { font-size: clamp(32px, 5vw, 44px); line-height: 1.15; margin: 0 0 14px; letter-spacing: -0.02em; color: var(--brand); }
+  .game-hero .lead { font-size: 18px; color: var(--muted); max-width: 680px; margin: 0 0 24px; }
+  .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .steps li { counter-increment: step; position: relative; margin: 0; padding: 14px 16px 14px 58px; background: var(--card); border: 1px solid var(--soft-border); border-radius: 6px; }
+  .steps li::before { content: counter(step); position: absolute; left: 14px; top: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .more-games { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .more-games li { margin: 0; }
+  .more-games a { display: inline-block; padding: 8px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 6px; font-weight: 600; text-decoration: none; }
+  .more-games a:hover { border-color: var(--brand); }
+  .cta { padding: 8px 0 12px; }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "VideoGame",
+      "name": "Mumla",
+      "url": "https://mumla.disco.games/",
+      "mainEntityOfPage": "https://www.disco.games/mumla",
+      "description": "Mumla är ett gratis dagligt ordspel på svenska. Gissa dagens ord på fem bokstäver med fem försök. Ett nytt ord varje dag.",
+      "genre": [
+        "Word game",
+        "Puzzle"
+      ],
+      "gamePlatform": "Web browser",
+      "applicationCategory": "Game",
+      "operatingSystem": "Any",
+      "inLanguage": "sv",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "disco.games",
+        "url": "https://www.disco.games/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "disco.games",
+          "item": "https://www.disco.games/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mumla",
+          "item": "https://www.disco.games/mumla"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Hoppa till innehållet</a>
+
+<header class="site-header">
+  <div class="container">
+    <div class="header-left" data-disco-menu>
+      <a class="brand" href="/">disco<span>.games</span></a>
+    </div>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/#games">Spel</a>
+      <a href="/#leaderboards">Leaderboards</a>
+      <a href="/#about">Om</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Brödsmulor"><a href="/">disco.games</a> › Mumla</nav>
+
+    <div class="game-hero">
+      <h1>Mumla: dagens ord på svenska</h1>
+      <p class="lead">Ett dagligt ordspel i stil med Wordle. Gissa dagens ord på fem bokstäver med fem försök, och lär dig ordets böjningar när du har klarat det.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://mumla.disco.games/">Spela Mumla</a>
+        <a class="btn btn-secondary" href="#how-to-play">Så spelar du</a>
+      </div>
+    </div>
+
+    <section id="how-to-play" aria-labelledby="how-title">
+      <h2 id="how-title">Så spelar du</h2>
+      <ol class="steps"><li>Skriv ett svenskt ord på fem bokstäver.</li><li>Färgerna visar hur nära du är: grön betyder rätt bokstav på rätt plats, gul betyder att bokstaven finns i ordet men på en annan plats, och grå betyder att den inte finns med.</li><li>Använd ledtrådarna och gissa igen. Du har fem försök.</li><li>När du har klarat dagens ord ser du alla ordets böjningar och en exempelmening.</li></ol>
+    </section>
+
+    <section aria-labelledby="features-title">
+      <h2 id="features-title">Det här ingår</h2>
+      <div class="panel"><ul class="feature-list"><li><strong>Ett nytt ord varje dag</strong>Alla får samma ord samma dag.</li><li><strong>Fem bokstäver, fem försök</strong>Lätt att komma igång, svårt att klara varje dag.</li><li><strong>Lär dig mer svenska</strong>Efter varje ord visas böjningar och en exempelmening, vilket gör Mumla bra även för dig som lär dig svenska.</li></ul></div>
+    </section>
+
+    <section aria-labelledby="tips-title">
+      <h2 id="tips-title">Tips</h2>
+      <p>Börja med ett ord som innehåller vanliga bokstäver, till exempel flera vokaler och bokstäver som R, S, T och N.</p><p>Glöm inte Å, Ä och Ö. De är vanliga i svenska ord och lätta att missa.</p>
+    </section>
+
+    <section aria-labelledby="faq-title">
+      <h2 id="faq-title">Vanliga frågor</h2>
+      <details>
+        <summary>Är Mumla gratis?</summary>
+        <div class="answer"><p>Ja. Mumla är gratis att spela.</p></div>
+      </details>
+      <details>
+        <summary>Hur ofta kommer ett nytt ord?</summary>
+        <div class="answer"><p>Ett nytt ord varje dag.</p></div>
+      </details>
+      <details>
+        <summary>Fungerar det på mobilen?</summary>
+        <div class="answer"><p>Ja. Mumla fungerar i alla moderna webbläsare på mobil, surfplatta och dator.</p></div>
+      </details>
+      <details>
+        <summary>Passar Mumla för den som lär sig svenska?</summary>
+        <div class="answer"><p>Ja. Efter varje ord visas ordets böjningar och en exempelmening.</p></div>
+      </details>
+    </section>
+
+    <div class="cta"><a class="btn" href="https://mumla.disco.games/">Spela Mumla</a></div>
+
+    <section aria-labelledby="more-title">
+      <h2 id="more-title">Fler spel på disco.games</h2>
+      <ul class="more-games"><li><a href="/guess-the-career">Guess the Career</a></li> <li><a href="/guess-the-airport">Guess the Airport</a></li> <li><a href="/flag-quiz">Flag Quiz</a></li></ul>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="links">
+      <a href="/">Startsida</a>
+      <a href="/guess-the-career">Guess the Career</a>
+      <a href="/guess-the-airport">Guess the Airport</a>
+      <a href="/flag-quiz">Flag Quiz</a>
+      <a href="/mumla">Mumla</a>
+      <a href="/privacy">Integritetspolicy</a>
+      <a href="/terms">Villkor</a>
+      <a href="mailto:info@disco.games">Kontakt</a>
+    </div>
+    <p>© 2026 disco.games · Gjord i Sverige av David Larsson.</p>
+  </div>
+</footer>
+<script src="/menu.js" defer></script>
+</body>
+</html>
