@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>disco.games – Free Browser Games for Trivia and Sports Fans</title>
-<meta name="description" content="Free browser games by disco.games. Guess football players from their club history, airports from their runways, countries from their flags, or the daily Swedish word in Mumla. No download needed.">
+<meta name="description" content="Free browser games: guess footballers from their careers, airports from runways, countries from flags, and Mumla, a daily Swedish word game.">
 <link rel="canonical" href="https://www.disco.games/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -75,6 +75,16 @@
   .lb-gap { text-align: center; color: var(--muted); font-size: 13px; line-height: 1; padding: 2px 0; }
   .lb-note { margin: 0; font-size: 13px; color: var(--muted); }
   .lb-note a { font-weight: 600; }
+  /* ---- Game tiles: only the title is the link, the whole card stays clickable ---- */
+  .game-tile { position: relative; }
+  .game-tile:focus-within { outline: 3px solid var(--brand); outline-offset: 2px; }
+  .game-tile .tile-body { padding: 10px 14px 14px; border-top: 1px solid var(--soft-border); }
+  .game-tile .tile-title { margin: 0; padding: 0; border: 0; font-size: 16px; font-weight: 700; line-height: 1.4; }
+  .tile-link { color: var(--text); text-decoration: none; }
+  .tile-link::after { content: ""; position: absolute; inset: 0; }
+  .tile-link:hover { color: var(--text); }
+  .tile-link:focus-visible { outline: none; }
+  .tile-desc { margin: 4px 0 0; font-size: 14px; line-height: 1.5; color: var(--muted); }
 </style>
 
 <script type="application/ld+json">
@@ -87,7 +97,17 @@
       "url": "https://www.disco.games/",
       "name": "disco.games",
       "description": "Free browser games for trivia and sports fans.",
-      "inLanguage": "en"
+      "inLanguage": "en",
+      "publisher": { "@id": "https://www.disco.games/#organization" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.disco.games/#organization",
+      "name": "disco.games",
+      "url": "https://www.disco.games/",
+      "logo": "https://www.disco.games/favicon.svg",
+      "email": "info@disco.games",
+      "founder": { "@type": "Person", "name": "David Larsson" }
     },
     {
       "@type": "ItemList",
@@ -97,25 +117,25 @@
         {
           "@type": "ListItem",
           "position": 1,
-          "url": "https://www.disco.games/guess-the-career",
+          "url": "https://guessthecareer.disco.games/",
           "name": "Guess the Career"
         },
         {
           "@type": "ListItem",
           "position": 2,
-          "url": "https://airports.disco.games",
+          "url": "https://airports.disco.games/",
           "name": "Guess the Airport"
         },
         {
           "@type": "ListItem",
           "position": 3,
-          "url": "https://flagquiz.disco.games",
+          "url": "https://flagquiz.disco.games/",
           "name": "Flag Quiz"
         },
         {
           "@type": "ListItem",
           "position": 4,
-          "url": "https://mumla.disco.games",
+          "url": "https://mumla.disco.games/",
           "name": "Mumla"
         }
       ]
@@ -169,7 +189,7 @@
       <p class="section-intro">Every game on disco.games is free to play and works on desktop and mobile. New games are added over time.</p>
 
       <div class="game-grid">
-        <a class="game-tile" href="https://guessthecareer.disco.games" aria-label="Play Guess the Career">
+        <article class="game-tile">
           <div class="thumb" aria-hidden="true">
             <div class="mock">
               <div class="mock-head">Senior career*</div>
@@ -185,10 +205,13 @@
               <div class="mock-guess"><div class="mock-input">Who is this player?</div></div>
             </div>
           </div>
-          <div class="tile-title">Guess the Career</div>
-        </a>
+          <div class="tile-body">
+            <h3 class="tile-title"><a class="tile-link" href="https://guessthecareer.disco.games/">Guess the Career</a></h3>
+            <p class="tile-desc">Football quiz: guess the footballer from their career path and club history.</p>
+          </div>
+        </article>
 
-        <a class="game-tile" href="https://airports.disco.games" aria-label="Play Guess the Airport">
+        <article class="game-tile">
           <div class="thumb" aria-hidden="true">
             <div class="mock">
               <div class="mock-head">Guess the airport</div>
@@ -210,10 +233,13 @@
               <div class="mock-guess"><div class="mock-input">Which airport is this?</div></div>
             </div>
           </div>
-          <div class="tile-title">Guess the Airport</div>
-        </a>
+          <div class="tile-body">
+            <h3 class="tile-title"><a class="tile-link" href="https://airports.disco.games/">Guess the Airport</a></h3>
+            <p class="tile-desc">Airport quiz: identify the world’s biggest airports from their runway layout.</p>
+          </div>
+        </article>
 
-        <a class="game-tile" href="https://flagquiz.disco.games" aria-label="Play Flag Quiz">
+        <article class="game-tile">
           <div class="thumb" aria-hidden="true">
             <div class="mock">
               <div class="mock-head">Guess the flag</div>
@@ -227,10 +253,13 @@
               <div class="mock-guess"><div class="mock-input">Which country is this?</div></div>
             </div>
           </div>
-          <div class="tile-title">Flag Quiz</div>
-        </a>
+          <div class="tile-body">
+            <h3 class="tile-title"><a class="tile-link" href="https://flagquiz.disco.games/">Flag Quiz</a></h3>
+            <p class="tile-desc">Flag quiz with all 197 countries, plus US states and more.</p>
+          </div>
+        </article>
 
-        <a class="game-tile" href="https://mumla.disco.games" aria-label="Play Mumla">
+        <article class="game-tile">
           <div class="thumb" aria-hidden="true">
             <div class="mock">
               <div class="mock-head">Dagens ord</div>
@@ -263,8 +292,11 @@
               <div class="mock-guess"><div class="mock-input">Gissa dagens ord</div></div>
             </div>
           </div>
-          <div class="tile-title">Mumla</div>
-        </a>
+          <div class="tile-body">
+            <h3 class="tile-title"><a class="tile-link" href="https://mumla.disco.games/">Mumla</a></h3>
+            <p class="tile-desc" lang="sv">Mumla är ett dagligt svenskt ordspel i stil med Wordle.</p>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -274,15 +306,15 @@
       <div class="lb-grid" id="lbGrid">
         <article class="lb-card" data-lb="career">
           <div class="lb-card-head"><h3 class="lb-card-title">Guess the Career</h3><a class="lb-card-play" href="https://guessthecareer.disco.games">Play</a></div>
-          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+          <div class="lb-body"><p class="lb-note">The top 3 players are shown here.</p></div>
         </article>
         <article class="lb-card" data-lb="airport">
           <div class="lb-card-head"><h3 class="lb-card-title">Guess the Airport</h3><a class="lb-card-play" href="https://airports.disco.games">Play</a></div>
-          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+          <div class="lb-body"><p class="lb-note">The top 3 players are shown here.</p></div>
         </article>
         <article class="lb-card" data-lb="flag">
           <div class="lb-card-head"><h3 class="lb-card-title">Flag Quiz</h3><a class="lb-card-play" href="https://flagquiz.disco.games">Play</a></div>
-          <div class="lb-body"><p class="lb-note">Loading…</p></div>
+          <div class="lb-body"><p class="lb-note">The top 3 players are shown here.</p></div>
         </article>
       </div>
     </section>
@@ -322,7 +354,7 @@
       </details>
       <details>
         <summary>What happens to my data?</summary>
-        <div class="answer"><p>We only store what is needed to run the game: your account, display name, progress and streaks. Read the full <a href="https://guessthecareer.disco.games/privacy.html">privacy policy</a>. You can delete your account and all your data from your profile in the game.</p></div>
+        <div class="answer"><p>We only store what is needed to run the game: your account, display name, progress and streaks. Read the full <a href="/privacy">privacy policy</a>. You can delete your account and all your data from your profile in the game.</p></div>
       </details>
       <details>
         <summary>How can I contact you?</summary>
@@ -337,11 +369,12 @@
   <div class="container">
     <div class="links">
       <a href="/">Home</a>
-      <a href="/guess-the-career">Guess the Career</a>
+      <a href="https://guessthecareer.disco.games/">Guess the Career</a>
       <a href="https://airports.disco.games">Guess the Airport</a>
       <a href="https://flagquiz.disco.games">Flag Quiz</a>
       <a href="https://mumla.disco.games">Mumla</a>
-      <a href="https://guessthecareer.disco.games/privacy.html">Privacy policy</a>
+      <a href="/privacy">Privacy policy</a>
+      <a href="/terms">Terms</a>
       <a href="mailto:info@disco.games">Contact</a>
     </div>
     <p>© 2026 disco.games · Made in Sweden by David Larsson.</p>
